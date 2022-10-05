@@ -1,0 +1,75 @@
+{% extends "BE_converter/base.html" %}
+
+{% load static %}
+
+{% block scripts %}
+<link rel="stylesheet" href="{% static 'BE_converter/style.css' %}">
+<script src="{% static 'BE_converter/main.js' %}"></script>
+{% endblock scripts %}
+
+{% block content %}
+<div class="title text-center py-4">
+  <div>
+    <a  style=" text-decoration: none; padding-top:30px; font:10px; padding:8px; background:#0d6efd;
+       border-radius:5px; color:white;" href="{% url 'Home:home1-view'%}">Home</a>
+    <a  style=" text-decoration: none;padding-top:30px; font:10px; padding:8px; background:#0d6efd;
+    border-radius:5px; color:white;" href="{% url 'BE_converter:expression-main-view'%}">Boolean Expression</a>
+    <a  style=" text-decoration: none;padding-top:30px; font:10px; padding:8px; background:#0d6efd;
+    border-radius:5px; color:white;" href="{% url 'BE_converter:circuit-main-view'%}">Logic Circuit</a>
+       </div>
+  <h1>Truth Table Converter</h1>
+</div>
+<div id="main" class="container py-4">
+  <div id="mycontainer" class="p-5 mb-5 bg-light rounded-4">
+    <div class="row">
+      <form onsubmit="Create(event)">
+        {% csrf_token %}
+      <div class="col input-group mb-3">
+          <span class="input-group-text">Number of Input</span>
+          <input type="number" id="input" class="form-control" placeholder="e.g. 1,2,3,.....">
+          <button type="submit" class="btn btn-primary">Create Table</button>
+      </div>
+        </form>
+    </div>
+    <form id="output-form" onsubmit="sendData(event)">
+      <!-- <form id="output-form"> -->
+      {% csrf_token %}
+      <!-- truth_table -->
+    <div class="row justify-content-center">
+      <div class="col">
+          <table id="tb"></table>
+          <div id="truth_table1"></div>
+      </div>
+      <!-- Submit button -->
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div id="truth_table2"></div>
+        </div>
+      </div>
+      <!-- circuit button -->
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <div id="truth_table3"></div>
+        </div>
+      </div>
+      <!-- Expression Button -->
+      <div class="row justify-content-center">
+        <div class="col-auto">
+            <div id="truth_table4"></div>
+        </div>
+    </div>
+    <!-- Expression and Image -->
+    <div class="row justify-content-center">
+      <div class="col-auto">
+          <div id="truth_table5"></div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col">
+            <div id="truth_table"></div>
+        </div>
+  </div>
+    </form>
+    </div>
+
+</div>
+{% endblock content %}

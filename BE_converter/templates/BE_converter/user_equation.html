@@ -1,0 +1,77 @@
+{% extends "BE_converter/base.html" %}
+
+{% load static %}
+<head>
+  <style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+{% block scripts %}
+<script src="{% static 'BE_converter/user_equation_main.js' %}"></script>
+{% endblock scripts %}
+
+{% block content %}
+<div class="title text-center py-4">
+  <div>
+    <a  style=" text-decoration: none; padding-top:30px; font:10px; padding:8px; background:#0d6efd;
+       border-radius:5px; color:white;" href="{% url 'Home:home1-view'%}">Home</a>
+    <a  style=" text-decoration: none;padding-top:30px; font:10px; padding:8px; background:#0d6efd;
+    border-radius:5px; color:white;" href="{% url 'BE_converter:main-view'%}">Truth Table</a>
+    <a  style=" text-decoration: none;padding-top:30px; font:10px; padding:8px; background:#0d6efd;
+    border-radius:5px; color:white;" href="{% url 'BE_converter:circuit-main-view'%}">Logic Circuit</a>
+       </div>
+       <h1>Boolean expression Converter</h1>
+</div>
+
+
+</div>
+
+<div id="main" class="container py-4">
+  <div id="mycontainer" class="p-5 mb-5 bg-light rounded-4">
+
+
+    <div class="row">
+      <!-- form to take and submit the expression as input-->
+      <form id="output-form" onsubmit="Create(event)">
+        {% csrf_token %}
+      <div class="col input-group mb-3">
+          <span class="input-group-text">Enter boolean expresion</span>
+          <input type="text" id="input" class="form-control" placeholder="e.g. (A OR (B NAND C))">
+          <button type="submit" class="btn btn-primary">Enter</button>
+      </div>
+
+      <!-- take user input as to which action to be performed (generate circuit or truth table)-->
+      <!-- div to accomodate Truth table button (generated in outputCreate function in user_equation_main.js)-->
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <table id="output_div"></table>
+            <div id="table_button_div">
+            </div>
+        </div>
+    </div>
+    <!-- div to accomodate circuit button (generated in outputCreate function in user_equation_main.js) -->
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <div id="circuit_button_div">
+        </div>
+      </div>
+    </div>
+    <!-- Divs to accomodate Truthtable and Image outputs (called in
+    sendData_boolean and sendData_circuit functions in user_equation_main.js ) -->
+    <div class="row justify-content-center">
+      <div class="col-auto">
+          <div id="output_div2"></div>
+      </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-auto" >
+            <div id="output_img_div"></div>
+        </div>
+  </div>
+  </form>
+</div>
+    </div> <!--div id="mycontainer" ends here-->
+</div>  <!--div id="main" ends here-->
+{% endblock content %}

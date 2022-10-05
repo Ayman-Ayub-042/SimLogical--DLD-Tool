@@ -1,0 +1,89 @@
+{% extends "BE_converter/base.html" %}
+
+{% load static %}
+<head> </head>
+{% block scripts %}
+
+<script type="text/javascript" src="{% static 'libraries/simcir.js'%}"></script>
+    <script type="text/javascript" src="{% static 'libraries/simcir-basicset.js'%}"></script>
+    <script type="text/javascript" src="{% static 'libraries/simcir-library.js'%}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'libraries/simcir.css'%}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'libraries/simcir-basicset.css'%}" />
+	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+{% endblock scripts %}
+
+{% block content %}
+
+<div class="title text-center py-4">  
+  <div>
+    <a  style=" text-decoration: none; padding-top:30px; font:10px; padding:8px; background:#0d6efd;
+       border-radius:5px; color:white;" href="{% url 'Home:home1-view'%}">Home</a>
+    <a  style=" text-decoration: none;padding-top:30px; font:10px; padding:8px; background:#0d6efd;
+    border-radius:5px; color:white;" href="{% url 'BE_converter:expression-main-view'%}">Boolean Expression</a>
+    <a  style=" text-decoration: none;padding-top:30px; font:10px; padding:8px; background:#0d6efd;
+    border-radius:5px; color:white;" href="{% url 'BE_converter:circuit-main-view'%}">Logic Circuit</a>
+       </div>
+  <h1>Combinational circuit Converter</h1> </div>
+
+<div class="col-auto row justify-content-center" id="show_div">  </div>
+<table class="col-auto row justify-content-center" id="show_div2">  </table>
+<div id="main" class="container py-4">
+  <div id="mycontainer" class="p-5 mb-5 bg-light rounded-4">
+      <!-- form to take logic circuit as input-->
+      <div class="col-auto text-center" id="abc"> </div>
+      <form id="form2" onsubmit="create(event)">
+       
+        <div class="row">
+        <button type="submit" class="btn  btn-outline-info" id="submit">Send Data</button></div>
+      </form>
+      
+    
+      <form id="output-form">
+        <div class="container">
+         
+          <div class="row">
+           
+            
+                  <button type="submit" class="btn  btn-outline-danger" id="clear-workspace">Clear Workspace</button>
+               
+              
+           
+            <div class="col-lg-9 simcir_outer_div" >
+              
+               {% csrf_token %}
+               <div class="simcir" id="mySimcir" >
+                <script src="{% static 'BE_converter/logic-circuit.js' %}"></script>
+              </div>
+            </div>
+          </div> <!--row div ends here-->
+
+        <script type="text/javascript">
+              var input = document.getElementById("fileToLoad");
+              var text = document.querySelector("textarea");
+              var name;
+              input.onchange = function(e) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                  text.value = event.target.result;
+                  button.disabled = false;
+                }
+                name = e.target.files[0].name;
+                reader.readAsText(new Blob([e.target.files[0]], {
+                  "type": "application/json"
+                }));
+              }
+          </script>
+        
+          </div>
+    <!-- div to accomodate circuit button (generated in outputCreate function in user_equation_main.js) -->
+    <!-- Divs to accomodate Truthtable and Image outputs (called in
+    sendData_boolean and sendData_circuit functions in user_equation_main.js ) -->
+  </form>
+
+    </div> <!--div id="mycontainer" ends here-->
+</div>  <!--div id="main" ends here-->
+{% endblock content %}
